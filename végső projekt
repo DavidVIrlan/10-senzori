@@ -1,3 +1,5 @@
+#include <TimeLib.h>
+
 //cod arduiono senzori
 // ---------------------------------------------------------------- //
 // Arduino Ultrasoninc Sensor HC-SR04
@@ -341,10 +343,10 @@ void loop() {
       t3off = millis()- t3on;
       t3on = 0;
       unsigned int total = t1off+ t2off + t3off;
-      float v1 = 20/(t1off/1000);
-      float v2 = 17/(t2off/1000);
-      float vm = (2*v1*v2)/(v1+v2);
-      total = total/1000;
+      float v1 = 0.2/(t1off/100);
+      float v2 = 0.17/(t2off/100);
+      total = total/100;
+      float vm = 37/total;
       int lenght = vm * total;
       Serial.println(t1off);
       Serial.println(t2off);
@@ -352,9 +354,9 @@ void loop() {
       Serial.println( total );
       Serial.println( v1 );
       Serial.println(v2);
-      Serial.println(round(vm));
+      Serial.println(vm);
       Serial.print("Object is ");
-      Serial.print( lenght );
+      Serial.print( lenght*100 );
       Serial.print(" cm in total");
     }
   }
