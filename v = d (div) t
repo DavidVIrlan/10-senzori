@@ -1,0 +1,374 @@
+#include <Timer.h>
+
+//cod arduiono senzori
+// ---------------------------------------------------------------- //
+// Arduino Ultrasoninc Sensor HC-SR04
+// Re-writed by Arbi Abdul Jabbaar
+// Using Arduino IDE 1.8.7
+// Using HC-SR04 Module
+// Tested on 17 September 2019
+// ---------------------------------------------------------------- //
+
+#define echoPin1 62 // attach pin D2 Arduino to pin Echo of HC-SR04  //sensor 1
+#define trigPin1 63//attach pin D3 Arduino to pin Trig of HC-SR04 
+
+#define echoPin2 12 //sensor 2
+#define trigPin2 13
+
+#define echoPin3 55 //sensor 3
+#define trigPin3 56
+
+#define echoPin4 57 //sensor 4
+#define trigPin4 58
+
+#define echoPin5 59 //sensor 5 
+#define trigPin5 60
+
+#define echoPin6 2 //sensor 6
+#define trigPin6 3
+
+
+#define echoPin8 6 //sensor 8
+#define trigPin8 7
+
+#define echoPin9 8//sensor 9
+#define trigPin9 9
+
+#define echoPin10 11 //sensor 10
+#define trigPin10 10
+
+//senzor 1 - senzor 6
+//senzor 5 - senzor 10
+//senzor 3 - senzor 8
+//senzor 4 - senzor 9
+
+// defines variables
+long duration; // variable for the duration of sound wave travel
+float distance; // variable for the distance measurement
+
+long duration2;
+float distance2;
+
+long duration3;
+float distance3;
+
+long duration4;
+float distance4;
+
+long duration5;
+float distance5;
+
+long duration6;
+float distance6;
+
+
+long duration8;
+float distance8;
+
+long duration9;
+float distance9;
+
+long duration10;
+float distance10;
+
+long volume = 0;
+
+float tspeed = 0;
+unsigned int t1savedon = 0;
+float t1 = 0;
+unsigned int t1on = 0;
+unsigned int t1off = 0;
+unsigned int t2on = 0;
+float v = 0;
+float lenght = 0;
+float height = 0;
+float width = 0;
+void setup() {
+  pinMode(trigPin1, OUTPUT); // Sets the trigPin as an OUTPUT
+  pinMode(echoPin1, INPUT); // Sets the echoPin as an INPUT
+  
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
+  
+  pinMode(trigPin3, OUTPUT);
+  pinMode(echoPin3, INPUT);
+  
+  pinMode(trigPin4, OUTPUT);
+  pinMode(echoPin4, INPUT);
+  
+  pinMode(trigPin5, OUTPUT);
+  pinMode(echoPin5, INPUT);
+  
+  pinMode(trigPin6, OUTPUT);
+  pinMode(echoPin6, INPUT);
+  
+
+  
+  pinMode(trigPin8, OUTPUT);
+  pinMode(echoPin8, INPUT);
+  
+  pinMode(trigPin9, OUTPUT);
+  pinMode(echoPin9, INPUT);
+  
+  pinMode(trigPin10, OUTPUT);
+  pinMode(echoPin10, INPUT);
+    
+  Serial.begin(9600); // // Serial Communication is starting with 9600 of baudrate speed
+  Serial.println("Ultrasonic Sensor HC-SR04 Test"); // print some text in Serial Monitor
+  Serial.println("with Arduino UNO R3");
+}
+void loop() {
+   
+  // Clears the trigPin condition
+  digitalWrite(trigPin1, LOW);
+  delayMicroseconds(2);
+
+  
+  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
+
+  digitalWrite(trigPin1, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin1, LOW);
+  
+ 
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin1, HIGH);
+  // Calculating the distance
+  
+  distance = duration * 0.034 / 2 ; // Speed of sound wave divided by 2 (go and back)
+  // Displays the distance on the Serial Monitor
+  if (distance <= 0 || distance >= 29)
+  distance = 27;
+//  Serial.print("Distance 1: ");
+//  Serial.print(distance);
+//  Serial.println(" cm");
+
+
+  // sensor 2
+  digitalWrite(trigPin2, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin2, LOW);
+
+  duration2 = pulseIn(echoPin2, HIGH);
+  distance2 = duration2 * 0.034 / 2;
+
+//  if (distance2 <= 0 || distance2 > 22)
+//  distance2 = 19;
+  Serial.print("Distance 2: ");
+  Serial.print(distance2);
+  Serial.println(" cm");
+
+  // sensor 3
+  
+  digitalWrite(trigPin3, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin3, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin3, LOW);
+
+  duration3 = pulseIn(echoPin3, HIGH);
+  distance3 = duration3 * 0.034 / 2 - 2;
+  
+  if (distance3 <= 0 || distance3 >= 25)
+  distance3 = 23;
+//  Serial.print("Distance 3: ");
+//  Serial.print(distance3);
+//  Serial.println(" cm");
+
+
+  // sensor 4
+  
+  digitalWrite(trigPin4, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin4, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin4, LOW);
+
+  duration4 = pulseIn(echoPin4, HIGH);
+  distance4 = duration4 * 0.034 / 2;
+  
+  if (distance4 <= 0 || distance4 >= 25)
+  distance4 = 25;
+//  Serial.print("Distance 4: ");
+//  Serial.print(distance4);
+//  Serial.println(" cm");
+
+  // sensor 5
+  digitalWrite(trigPin5, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin5, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin5, LOW);
+
+  duration5 = pulseIn(echoPin5, HIGH);
+  distance5 = duration5 * 0.034 / 2;
+
+  if (distance5 <= 0 || distance5 >= 29)
+  distance5 = 27;
+//  Serial.print("Distance 5: ");
+//  Serial.print(distance5);
+//  Serial.println(" cm");
+
+  // sensor 6
+
+  digitalWrite(trigPin6, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin6, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin6, LOW);
+
+  duration6 = pulseIn(echoPin6, HIGH);
+  distance6 = duration6* 0.034 / 2 - 1;
+
+  if (distance6 <= 0 || distance6 >= 29)
+  distance6 = 27;
+//  Serial.print("Distance 6: ");
+//  Serial.print(distance6);
+//  Serial.println(" cm");
+  
+
+
+  //sensor 8
+ 
+  digitalWrite(trigPin8, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin8, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin8, LOW);
+
+  duration8 = pulseIn(echoPin8, HIGH);
+  distance8 = duration8 * 0.034 / 2;
+  
+  if (distance8 <= 0 || distance8 >= 25)
+  distance8 = 23;
+//  Serial.print("Distance 8: ");
+//  Serial.print(distance8);
+//  Serial.println(" cm");
+
+  //sensor 9
+  digitalWrite(trigPin9, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin9, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin9, LOW);
+
+  duration9 = pulseIn(echoPin9, HIGH);
+  distance9 = duration9 * 0.034 / 2 + 1;
+
+  if (distance9 <= 0 || distance9 >= 25)
+  distance9 = 23;
+//  Serial.print("Distance 9: ");
+//  Serial.print(distance9);
+//  Serial.println(" cm");
+
+  //senor 10
+  
+  digitalWrite(trigPin10, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin10, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin10, LOW);
+
+  duration10 = pulseIn(echoPin10, HIGH);
+  distance10 = duration10 * 0.034 / 2;
+
+  if (distance10 <= 0 || distance10 >= 29)
+  distance10 = 27;
+//  Serial.print("Distance 10: ");
+//  Serial.print(distance10);
+//  Serial.println(" cm");
+
+  /*Serial.print("Volume: ");
+  volume = distance * distance2;
+  volume = volume * 25;*/ 
+
+///calculate height 
+
+  if(distance2 < 14){
+      height = 20 - distance2;
+      Serial.print("Object is ");
+      Serial.print(height);
+      Serial.println(" cm in height");
+  }
+  
+  
+
+  //int pchizda = 10;
+
+  //calculate width
+
+  if(distance3 < 22 && distance8 < 22)
+  {
+      width = 21 - (distance3 + distance8);
+      Serial.print("Object has ");
+      Serial.print(width);
+      Serial.println(" cm in width");      
+  }
+
+   
+
+  ///calculate length
+
+  if(distance5 < 24 && distance10 < 24){
+    if(t1on == 0){
+      t1on = millis();
+      t1savedon = t1on;
+    }
+  }
+  else if ( distance5 >  24 && distance10 > 24){
+    if (t1on > 0){
+    t1off = millis();
+    t1 = t1off - t1on;
+    t1on = 0;
+  }
+  }
+
+  if(distance3 < 22 && distance8 < 22)
+  {
+    if(t1savedon > 0){
+      t2on = millis();
+      tspeed = t2on - t1savedon;
+      t1savedon = 0; 
+    }
+  }
+
+  if(tspeed > 0 && t1 > 0){
+    tspeed = tspeed / 1000;
+    v = 18/tspeed;
+    t1 = t1/1000;
+    Serial.print("v = ");
+    Serial.println(v);
+    Serial.print("tspeed = ");
+    Serial.println(tspeed);
+    Serial.print("t1 = ");
+    Serial.println(t1);
+    lenght = v * t1;
+    
+    
+    volume = lenght * width * height;
+    Serial.println(lenght);
+    Serial.println(width);
+    Serial.println(height);;
+    Serial.print("Object is ");
+    Serial.print(volume);
+    Serial.print(" cm3 in total");
+
+    tspeed = 0;
+    t1 = 0;
+    
+  }
+  
+  Serial.println(" "); 
+  delay(200);
+  }
+  //int cioaca = 69;
